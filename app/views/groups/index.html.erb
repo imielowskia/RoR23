@@ -13,11 +13,9 @@
   </tr>
   </thead>
   <tbody>
-    <div id="groups">
         <% @groups.each do |group| %>
             <%= render group %>
         <% end %>
-    </div>
   </tbody>
 </table>
 <%= render "form", group: Group.new %>
