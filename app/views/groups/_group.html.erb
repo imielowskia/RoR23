@@ -4,4 +4,12 @@
     <%= group.nazwa %>
   </p>
 
+  <p>
+    <strong>Studenci zapisani do grupy:</strong>
+    <% group.students.each do |s| %>
+      <%= s.i_n %><br>
+    <% end %>
+
+  </p>
+
 </div>
