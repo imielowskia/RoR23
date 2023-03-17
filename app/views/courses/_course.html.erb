@@ -4,4 +4,11 @@
     <%= course.nazwa %>
   </p>
 
+  <p>
+    <strong>Zapisane grupy:</strong>
+    <% course.groups.each do |g| %>
+      <%= g.nazwa %>
+    <% end %>
+  </p>
+
 </div>

@@ -9,7 +9,13 @@
     <% group.students.each do |s| %>
       <%= s.i_n %><br>
     <% end %>
+  </p>
 
+  <p>
+    <strong>Przedmioty:</strong>
+    <% group.courses.each do |c| %>
+      <%= c.nazwa %><br>
+    <% end %>
   </p>
 
 </div>

@@ -17,6 +17,11 @@
   </div>
 
   <div>
+    Przedmioty:
+    <%= form.collection_check_boxes :course_ids, Course.all, :id, :nazwa %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
