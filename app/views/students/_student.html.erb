@@ -1,22 +1,11 @@
 <div id="<%= dom_id student %>">
-  <p>
-    <strong>Indeks:</strong>
-    <%= student.indeks %>
-  </p>
 
-  <p>
-    <strong>Imie:</strong>
-    <%= student.imie %>
-  </p>
+<tr>
+  <td><%= student.indeks %></td>
+  <td><%= student.i_n %></td>
+  <td><%= student.group.nazwa %></td>
+  <td><%= link_to "Edit this student", edit_student_path(student), class: "btn btn-sm btn-primary" %></td>
+  <td><%= button_to "Destroy this student", student, method: :delete, class: "btn btn-sm btn-danger" %></td>
+</tr>
 
-  <p>
-    <strong>Nazwisko:</strong>
-    <%= student.nazwisko %>
-  </p>
 
-  <p>
-    <strong>Group:</strong>
-    <%= student.group.nazwa %>
-  </p>
-
-</div>

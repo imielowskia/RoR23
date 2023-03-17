@@ -11,17 +11,25 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :nazwa, style: "display: block" %>
-    <%= form.text_field :nazwa %>
+  <div class="mb-3">
+    <label class="form-label">New group</label>
+    <div class="input-group">
+      <span class="input-group-text"><%= form.label :nazwa, style: "display: block", class: "" %></span>
+      <%= form.text_field :nazwa, class: "form-control form-control-sm" %>
+    </div>
+    <div class="form-check">
+
+      <ul class="list-group>
+
+      <%= form.collection_check_boxes :course_ids, Course.all, :id, :nazwa do |b| %>
+        <li class="list-group-item">
+        <%= b.check_box class: "form-check-input" %>
+        <%= b.label class: "form-check-label"%>
+        </li>
+        <% end %>
+        </ul>
+      </div>
+    <%= form.submit "Zapisz", class: "btn btn-sm btn-primary" %>
   </div>
 
-  <div>
-    Przedmioty:
-    <%= form.collection_check_boxes :course_ids, Course.all, :id, :nazwa %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

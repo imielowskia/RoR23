@@ -2,13 +2,26 @@
 
 <h1>Students</h1>
 
-<div id="students">
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
-  <% end %>
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th><strong>Indeks</strong></th>
+    <th><strong>Imię nazwisko:</strong></th>
+    <th><strong>Grupa:</strong></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <div id="students">
+      <% @students.each do |student| %>
+        <%= render student %>
+        <% end %>
+    </div>
+  </tbody>
+</table>
+<div>
+
+  <%= render "form", student: Student.new %>
 </div>
 
-<%= link_to "New student", new_student_path %>

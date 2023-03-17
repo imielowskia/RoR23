@@ -1,14 +1,13 @@
 <div id="<%= dom_id course %>">
-  <p>
-    <strong>Nazwa:</strong>
-    <%= course.nazwa %>
-  </p>
-
-  <p>
-    <strong>Zapisane grupy:</strong>
-    <% course.groups.each do |g| %>
-      <%= g.nazwa %>
-    <% end %>
-  </p>
-
+  <tr>
+    <td><%= course.nazwa %></td>
+    <td>
+      <% course.groups.each do |g| %>
+        <%= g.nazwa %><br>
+      <% end %>
+    </td>
+    <td><%= link_to "Edit this course", edit_course_path(course), class: "btn btn-sm btn-primary" %></td>
+    <td><%= button_to "Destroy this course", course, method: :delete, class: "btn btn-sm btn-danger" %></td>
+  </tr>
 </div>
+

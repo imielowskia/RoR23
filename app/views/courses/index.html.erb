@@ -2,13 +2,25 @@
 
 <h1>Courses</h1>
 
-<div id="courses">
-  <% @courses.each do |course| %>
-    <%= render course %>
-    <p>
-      <%= link_to "Show this course", course %>
-    </p>
-  <% end %>
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th><strong>Nazwa</strong></th>
+    <th><strong>Zapisane grupy:</strong></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <div id="courses">
+        <% @courses.each do |course| %>
+            <%= render course %>
+        <% end %>
+    </div>
+  </tbody>
+</table>
+
+<div>
+  <%= render "form", course: Course.new %>
 </div>
 
-<%= link_to "New course", new_course_path %>

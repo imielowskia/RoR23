@@ -1,21 +1,17 @@
 <div id="<%= dom_id group %>">
-  <p>
-    <strong>Nazwa:</strong>
-    <%= group.nazwa %>
-  </p>
-
-  <p>
-    <strong>Studenci zapisani do grupy:</strong>
-    <% group.students.each do |s| %>
-      <%= s.i_n %><br>
-    <% end %>
-  </p>
-
-  <p>
-    <strong>Przedmioty:</strong>
-    <% group.courses.each do |c| %>
-      <%= c.nazwa %><br>
-    <% end %>
-  </p>
-
+  <tr>
+    <td><%= group.nazwa %></td>
+    <td>
+      <% group.students.each do |s| %>
+        <%= s.i_n %><br>
+      <% end %>
+    </td>
+    <td>
+      <% group.courses.each do |c| %>
+        <%= c.nazwa %><br>
+      <% end %>
+    </td>
+    <td><%= link_to "Edit this group", edit_group_path(group), class: "btn btn-sm btn-primary" %></td>
+    <td><%= button_to "Destroy this group", group, method: :delete, class: "btn btn-sm btn-danger" %></td>
+  </tr>
 </div>

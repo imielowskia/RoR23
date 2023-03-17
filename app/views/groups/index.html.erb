@@ -2,13 +2,22 @@
 
 <h1>Groups</h1>
 
-<div id="groups">
-  <% @groups.each do |group| %>
-    <%= render group %>
-    <p>
-      <%= link_to "Show this group", group %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New group", new_group_path %>
+<table class="table table-sm">
+  <thead>
+  <tr>
+    <th><strong>Nazwa:</strong></th>
+    <th><strong>Studenci zapisani do grupy:</strong></th>
+    <th><strong>Przedmioty:</strong></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <div id="groups">
+        <% @groups.each do |group| %>
+            <%= render group %>
+        <% end %>
+    </div>
+  </tbody>
+</table>
+<%= render "form", group: Group.new %>
