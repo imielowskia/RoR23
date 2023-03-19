@@ -4,6 +4,10 @@
   <td><%= student.indeks %></td>
   <td><%= student.i_n %></td>
   <td><%= student.group.nazwa %></td>
+  <td><% student.course_students.each do |cs| %>
+        <%= cs.course.nazwa %><%= cs.ocena %><br>
+      <% end %>
+  </td>
   <td><%= link_to "Edit this student", edit_student_path(student), class: "btn btn-sm btn-primary" %></td>
   <td><%= button_to "Destroy this student", student, method: :delete, class: "btn btn-sm btn-danger" %></td>
 </tr>

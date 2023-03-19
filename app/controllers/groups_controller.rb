@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :set_group, only: %i[ show edit update destroy grade gradesave ]
 
   # GET /groups or /groups.json
   def index
@@ -19,13 +19,42 @@ class GroupsController < ApplicationController
   def edit
   end
 
+  #metoda oceniania w grupie
+  def grade
+    @course = Course.find(params[:course_id])
+    @students = Student.where(group_id: @group.id).all
+    @oceny = []
+    @students.each do |s|
+      if CourseStudent.where(student_id: s.id, course_id: @course.id).any?
+        cs = CourseStudent.find_by(student_id: s.id, course_id: @course.id)
+        @oceny[s.id] = cs.ocena
+      else
+        CourseStudent.create(student_id: s.id, course_id: @course.id, ocena: 0)
+        @oceny[s.id] = 0
+      end
+    end
+  end
+
+  def gradesave
+    @course = Course.find(params[:course_id])
+    @students = Student.where(group_id: @group.id).all
+
+    @students.each do |s|
+      s.courses.destroy(@course.id)
+      ocena = params['oceny_'+s.id.to_s].to_i
+      cs = CourseStudent.new(course_id: @course.id, student_id: s.id, ocena: ocena)
+      cs.save!
+    end
+    redirect_to group_path(@group.id), notice: "Zapisano oceny"
+  end
+
   # POST /groups or /groups.json
   def create
     @group = Group.new(group_params)
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to group_url(@group), notice: "Group was successfully created." }
+        format.html { redirect_to groups_url(@group), notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new, status: :unprocessable_entity }

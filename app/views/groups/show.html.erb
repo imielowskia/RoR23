@@ -1,10 +1,19 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @group %>
-
+<h1>Grupa <%= @group.nazwa %></h1>
+<ul class="list-group">
+  <li class="list-group-item list-group-item-action active">Przedmioty grupy:</li>
+  <% @group.courses.each do |c| %>
+    <li class="list-group-item"><%= c.nazwa %> <%= link_to 'Oceny końcowe', grade_group_path(@group, c.id), class: "btn btn-sm btn-primary" %>
+      <ul class="list-group">
+        <% @group.students.each do |s| %>
+          <li class="list-group-item"><%= s.i_n %>  </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
 <div>
-  <%= link_to "Edit this group", edit_group_path(@group) %> |
-  <%= link_to "Back to groups", groups_path %>
 
-  <%= button_to "Destroy this group", @group, method: :delete %>
+  <%= link_to "Back to groups", groups_path, class: "btn btn-success" %>
 </div>
