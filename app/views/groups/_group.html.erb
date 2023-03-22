@@ -11,6 +11,7 @@
         <%= c.nazwa %><br>
       <% end %>
     </td>
+    <td><%= link_to "Oceny końcowe", group_path(group), class: "btn btn-sm btn-primary" %></td>
     <td><%= link_to "Edit this group", edit_group_path(group), class: "btn btn-sm btn-primary" %></td>
     <td><%= button_to "Destroy this group", group, method: :delete, class: "btn btn-sm btn-danger" %></td>
   </tr>
