@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :set_course, only: %i[ show edit update destroy grade grade_student]
 
   # GET /courses or /courses.json
   def index
@@ -17,6 +17,32 @@ class CoursesController < ApplicationController
 
   # GET /courses/1/edit
   def edit
+  end
+
+  #GET /courses/1/group/1 metoda do oceniania grupy z przedmiotu
+  def grade
+    @group = Group.find(params[:group_id])
+    @students = Student.where(group_id: @group.id).all
+  end
+
+  #GET /courses/1/group/1/student/1
+  def grade_student
+    @group = Group.find(params[:group_id])
+    @student = Student.find(params[:student_id])
+    @grades = Grade.where(course_id: @course.id, student_id: @student.id).all
+    @grade = Grade.new
+  end
+
+  def grade_student_save
+    group_id = params['group_id'].to_i
+    grade = Grade.new
+    grade.course_id = params['id'].to_i
+    grade.student_id= params['student_id'].to_i
+    grade.ocena = params['grade']['ocena'].to_f
+    grade.data = DateTime.parse(params['grade']['data'])
+    grade.save
+    redirect_to grade_course_student_path(grade.course_id, group_id, grade.student_id )
+
   end
 
   # POST /courses or /courses.json

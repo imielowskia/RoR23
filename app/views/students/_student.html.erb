@@ -4,12 +4,32 @@
   <td><%= student.indeks %></td>
   <td><%= student.i_n %></td>
   <td><%= student.group.nazwa %></td>
-  <td><% student.course_students.each do |cs| %>
-        <%= cs.course.nazwa %><%= cs.ocena %><br>
+  <td >
+    <table class="table table-sm">
+      <% student.group.courses.each do |c| %>
+
+        <tr class="table-info">
+          <td><%= c.nazwa %></td>
+          <% if student.course_students.where(course_id: c.id).any? %>
+            <td class="col-6">Ocena końcowa :<strong><%= student.course_students.where(course_id: c.id).first.ocena %></strong> </td>
+          <% else %>
+            <td></td>
+          <% end %>
+        </tr>
+        <% student.grades.where(course_id: c.id).each do |g| %>
+          <tr>
+            <td class="col-6"><%= g.ocena %></td>
+            <td><%= g.data %></td>
+          </tr>
+        <% end %>
+
       <% end %>
+    </table>
+
   </td>
-  <td><%= link_to "Edit this student", edit_student_path(student), class: "btn btn-sm btn-primary" %></td>
-  <td><%= button_to "Destroy this student", student, method: :delete, class: "btn btn-sm btn-danger" %></td>
+  <td><%= link_to "Edit this student", edit_student_path(student), class: "btn btn-sm btn-primary col-8" %></td>
+  <td><%= button_to "Destroy this student", student, method: :delete, class: "btn btn-sm btn-danger col-8" %></td>
 </tr>
 
 
+</div>

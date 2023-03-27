@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course: one
+  student: one
+  ocena: 9.99
+  data: 2023-03-27
+
+two:
+  course: two
+  student: two
+  ocena: 9.99
+  data: 2023-03-27

@@ -1,10 +1,28 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @course %>
+<h1><%= @course.nazwa %></h1>
+<div>
+  <table class="table table-sm">
+    <thead>
+    <th>Grupa:</th>
+    <th></th>
+    </thead>
+    <tbody>
+      <% @course.groups.each do |g| %>
+        <tr>
+          <td><%= g.nazwa %></td>
+          <td><%= link_to "Oceny", grade_course_path(@course.id, g.id) , class: "btn btn-sm btn-primary" %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+</div>
 
 <div>
-  <%= link_to "Edit this course", edit_course_path(@course) %> |
-  <%= link_to "Back to courses", courses_path %>
 
-  <%= button_to "Destroy this course", @course, method: :delete %>
+  <%= link_to "Back to courses", courses_path , class: "btn btn-sm btn-primary"%>
+
+
 </div>
