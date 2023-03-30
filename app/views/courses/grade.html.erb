@@ -1,7 +1,7 @@
 <h1> <%= @course.nazwa %> </h1>
 <h2> Grupa: <%= @group.nazwa %></h2>
-
-<table class="table tbale-sm">
+<%= turbo_frame_tag 'Oceny_'+@group.id.to_s do %>
+<table class="table table-sm">
   <thead>
     <th>Student</th>
     <th>Oceny</th>
@@ -13,6 +13,7 @@
       <tr>
         <td><%= s.i_n %></td>
         <td colspan="2">
+          <%= turbo_frame_tag 'GS_'+@course.id.to_s+'_'+@group.id.to_s+'_'+s.id.to_s do %>
           <table class="table table-sm">
             <% s.grades.where(course_id: @course.id).each do |o| %>
               <tr>
@@ -22,9 +23,13 @@
             <% end %>
           </table>
         </td>
-        <td><%= link_to "Edytuj oceny", grade_course_student_path(@course.id, @group.id, s.id), class: "btn btn-sm btn-primary" %></td>
+        <td><%= link_to "Edytuj oceny", grade_course_student_path(@course.id, @group.id, s.id), data: {turbo_frame: 'GS_'+@course.id.to_s+'_'+@group.id.to_s+'_'+s.id.to_s}, class: "btn btn-sm btn-primary" %>
+          <%= link_to "Back to courses", courses_path , class: "btn btn-sm btn-primary"%>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<% end %>
 <%= link_to "Back to courses", courses_path , class: "btn btn-sm btn-primary"%>

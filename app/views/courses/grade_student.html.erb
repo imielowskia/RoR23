@@ -1,5 +1,8 @@
+
 <h1>Student: <%= @student.i_n %></h1>
 <h2> Oceny z przedmiotu: <%= @course.nazwa %></h2>
+
+<%= turbo_frame_tag "GS_"+@course.id.to_s+"_"+@group.id.to_s+'_'+@student.id.to_s do %>
 <table class="table table-sm">
   <thead>
     <th>Ocena</th>
@@ -26,4 +29,5 @@
     <%= form.submit 'Zapisz ocenę', class: "btn btn-sm btn-primary" %>
   </div>
 </div>
+<% end %>
 <% end %>
