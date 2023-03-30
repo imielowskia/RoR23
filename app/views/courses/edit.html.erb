@@ -1,6 +1,7 @@
 <h1>Editing course</h1>
-
-<%= render "form", course: @course %>
+<%= turbo_frame_tag "CourseNew" do %>
+  <%= render "form", course: @course %>
+<% end %>
 
 <br>
 

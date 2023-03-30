@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Courses</h1>
-
+<%= turbo_frame_tag "Courses" do %>
 <table class="table table-sm">
   <thead>
   <tr>
@@ -19,6 +19,8 @@
 </table>
 
 <div>
-  <%= render "form", course: Course.new %>
+  <%= turbo_frame_tag "CourseNew" do %>
+    <%= render "form", course: Course.new %>
+  <% end %>
 </div>
-
+<% end %>
