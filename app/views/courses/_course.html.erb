@@ -15,7 +15,9 @@
           <%= turbo_frame_tag 'Oceny_'+g.id.to_s do %>
           <%= g.nazwa %>
         </td>
-        <td><%= link_to "Oceny", grade_course_path(course.id, g.id) , data:{ turbo_frame: 'Oceny_'+g.id.to_s}, class: "btn btn-sm btn-primary" %>
+            <td><%= link_to "Oceny", grade_course_path(course.id, g.id) , data:{ turbo_frame: 'Oceny_'+g.id.to_s}, class: "btn btn-sm btn-primary" %></td>
+            <td><%= link_to "Oceny grupy", grade_course_group_path(course.id, g.id), data:{ turbo_frame: 'Oceny_'+g.id.to_s}, class: "btn btn-sm btn-primary" %>
+
           <% end %>
         </td>
       </tr>

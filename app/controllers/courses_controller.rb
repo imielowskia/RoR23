@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy grade grade_student]
+  before_action :set_course, only: %i[ show edit update destroy grade grade_student grade_group]
 
   # GET /courses or /courses.json
   def index
@@ -42,7 +42,18 @@ class CoursesController < ApplicationController
     grade.data = DateTime.parse(params['grade']['data'])
     grade.save
     redirect_to grade_course_student_path(grade.course_id, group_id, grade.student_id )
+  end
 
+  # druga wersja oceniania - formularz całej grupy
+  def grade_group
+    @lista = {}
+    @group = Group.find(params[:group_id])
+    @group.students.each do |s|
+      @lista[s.id]={'i'=>s.imie, 'n'=>s.nazwisko, 'o'=>[] }
+      s.grades.where(course_id: @course.id).each do |g|
+        @lista[s.id][oceny].push({data=>g.data, ocena=>g.ocena})
+      end
+    end
   end
 
   # POST /courses or /courses.json
