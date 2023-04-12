@@ -1,27 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
 <h1>Courses</h1>
-<h5><%= DateTime.now %></h5>
+
 <%= turbo_frame_tag "Courses" do %>
-<table class="table table-sm">
-  <thead>
-  <tr>
-    <th><strong>Nazwa</strong></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
+
+<div class="row">
+  <div class="col"><strong>Nazwa</strong></div>
+</div>
+
         <% @courses.each do |course| %>
             <%= render course %>
         <% end %>
-  </tbody>
-</table>
 
-<div>
-  <%= turbo_frame_tag "CourseNew" do %>
-    <%= render "form", course: Course.new %>
-  <% end %>
-</div>
+
+<div class="row" style="background-color: #DADADA">
+  <div class="col-12">
+    <%= turbo_frame_tag "CourseNew" do %>
+      <%= render "form", course: Course.new %>
+    <% end %>
+  </div>
+
+
+
+
 <% end %>

@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy grade grade_student grade_group]
+  before_action :set_course, only: %i[ show edit update destroy grade grade_student grade_group grade_group_save]
 
   # GET /courses or /courses.json
   def index
@@ -49,11 +49,16 @@ class CoursesController < ApplicationController
     @lista = {}
     @group = Group.find(params[:group_id])
     @group.students.each do |s|
-      @lista[s.id]={'i'=>s.imie, 'n'=>s.nazwisko, 'o'=>[] }
+      @lista[s.id]={'in'=>s.i_n, 'o'=>[] }
       s.grades.where(course_id: @course.id).each do |g|
-        @lista[s.id][oceny].push({data=>g.data, ocena=>g.ocena})
+        @lista[s.id]['o'].push({'data'=>g.data, 'ocena'=>g.ocena, 'id'=>g.id})
       end
     end
+  end
+
+  def grade_group_save
+    @group = Group.find(params[:group_id])
+    redirect_to courses_url, notice: "Byłem w ocenach"
   end
 
   # POST /courses or /courses.json

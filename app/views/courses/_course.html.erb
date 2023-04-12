@@ -1,27 +1,22 @@
-<div id="<%= dom_id course %>">
-  <tr>
-    <td><%= course.nazwa %></td>
-    <td></td>
-    <td><%= link_to "Edit this course", edit_course_path(course),data: {turbo_frame: "CourseNew"}, class: "btn btn-sm btn-primary" %></td>
-    <td><%= button_to "Destroy this course", course, method: :delete, class: "btn btn-sm btn-danger" %></td>
-  </tr>
-  <tr class="table-info">
-    <td colspan="4">Zapisane grupy</td>
-  </tr>
+
+  <div class="row mt-1" style="background-color: #DADADA">
+    <div class="col-8"><%= course.nazwa %></div>
+    <div class="col-2"><%= link_to "Edit this course", edit_course_path(course),data: {turbo_frame: "CourseNew"}, class: "btn btn-sm btn-primary" %></div>
+    <div class="col-2"><%= button_to "Destroy this course", course, method: :delete, class: "btn btn-sm btn-danger" %></div>
+  </div>
+  <div class="row">
+    <div class="col">Zapisane grupy</div>
+  </div>
+
   <% course.groups.each do |g| %>
+    <%= turbo_frame_tag 'Oceny.'+course.id.to_s+'.'+g.id.to_s do %>
+      <div class="row mt-1" style="background-color: #e3f2fd">
+        <div class="col-8 "><%= g.nazwa %></div>
+        <div class="col-2"><%= link_to "Oceny", grade_course_path(course.id, g.id) , data:{ turbo_frame: 'Oceny.'+course.id.to_s+'.'+g.id.to_s}, class: "btn btn-sm btn-primary" %></div>
+        <div class="col-2"><%= link_to "Oceny grupy", grade_course_group_path(course.id, g.id), data:{ turbo_frame: 'Oceny.'+course.id.to_s+'.'+g.id.to_s}, class: "btn btn-sm btn-primary" %></div>
+      </div>
 
-      <tr class="table-info">
-        <td colspan="3">
-          <%= turbo_frame_tag 'Oceny_'+g.id.to_s do %>
-          <%= g.nazwa %>
-        </td>
-            <td><%= link_to "Oceny", grade_course_path(course.id, g.id) , data:{ turbo_frame: 'Oceny_'+g.id.to_s}, class: "btn btn-sm btn-primary" %></td>
-            <td><%= link_to "Oceny grupy", grade_course_group_path(course.id, g.id), data:{ turbo_frame: 'Oceny_'+g.id.to_s}, class: "btn btn-sm btn-primary" %>
-
-          <% end %>
-        </td>
-      </tr>
-
+    <% end %>
   <% end %>
-</div>
+
 

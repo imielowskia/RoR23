@@ -1,5 +1,36 @@
-<%= turbo_frame_tag 'Oceny_'+@group.id.to_s do %>
+<%= turbo_frame_tag 'Oceny.'+@course.id.to_s+'.'+@group.id.to_s do %>
+  <div class="row mt-1" style="background-color: #e3f2fd">
+    <div class="col-10 "><%= @group.nazwa %></div>
+    <div class="col-2">
+      <%= link_to "Back to courses", courses_path , class: "btn btn-sm btn-primary"%>
+    </div>
+  </div>
+  <%= form_with(model: @grade, url: save_grade_course_group_path) do |form|  %>
+    <%= form.hidden_field :data, value: DateTime.now() %>
+  <% @lista.each_key do |sto| %>
+    <div class="row border-top">
+      <div class="col-2">
+        <%= @lista[sto]['in'] %>
+      </div>
+      <div class="col-3">
+        <ul class="list-group">
+          <% @lista[sto]['o'].each do |o| %>
+            <li class="list-group-item">
+              <%= form.number_field 'o_'+sto.to_s+'_'+o['id'].to_s,value: o['ocena'], in: 2.0..5.0, step: 0.5 %>
+            </li>
+          <% end %>
+        </ul>
 
-<h1>jestem</h1>
+        </div>
+
+
+      </div>
+    </div>
+  <% end %>
+    <div class="row justify-content-center">
+      <div class="col-2"><%= form.submit 'Zapisz oceny', class: "btn btn-sm btn-secondary" %></div>
+    </div>
+
+  <% end %>
 
 <% end %>

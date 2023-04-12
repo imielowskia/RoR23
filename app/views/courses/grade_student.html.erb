@@ -2,32 +2,37 @@
 <h1>Student: <%= @student.i_n %></h1>
 <h2> Oceny z przedmiotu: <%= @course.nazwa %></h2>
 
-<%= turbo_frame_tag "GS_"+@course.id.to_s+"_"+@group.id.to_s+'_'+@student.id.to_s do %>
-<table class="table table-sm">
-  <thead>
-    <th>Ocena</th>
-    <th>Data</th>
-    <th><%= link_to "Powrót", grade_course_path(@course.id, @group.id) , class: "btn btn-sm btn-primary" %></th>
-  </thead>
-  <tbody>
-    <% @grades.each do |g| %>
-      <tr>
-        <td><%= g.ocena %></td>
-        <td><%= g.data %></td>
-        <td></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= form_with(model: @grade, url: save_grade_course_student_path) do |form|  %>
-<%= form.hidden_field :data, value: DateTime.now() %>
-<div class="mb-3">
-  <div class="input-group">
-    <span class="input-group-text" id="inputGroup-sizing-default"><%= form.label 'Ocena', style: "display: block" %></span>
-    <%= form.number_field :ocena, in: 2.0..5.0, step: 0.5 %>
-    <%= form.submit 'Zapisz ocenę', class: "btn btn-sm btn-primary" %>
+<%= turbo_frame_tag 'GS_'+@course.id.to_s+'_'+@group.id.to_s+'_'+@student.id.to_s do %>
+  <div class="row">
+    <div class="col-4"><%= @student.i_n %></div>
+    <div class="col-4">
+      <ul class="list-group">
+        <% @student.grades.where(course_id: @course.id).each do |o| %>
+          <li class="list-group-item">
+            <ul class="list-group list-group-horizontal">
+              <li class="list-group-item"><%= o.ocena %></li>
+              <li class="list-group-item">data:<%= o.data %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col-2"></div>
   </div>
-</div>
+  <div class="row">
+      <div class="col-4"></div>
+      <div class="col-6">
+        <%= form_with(model: @grade, url: save_grade_course_student_path) do |form|  %>
+          <%= form.hidden_field :data, value: DateTime.now() %>
+          <div class="input-group">
+            <span class="input-group-text" id="inputGroup-sizing-default"><%= form.label 'Ocena', style: "display: block" %></span>
+            <%= form.number_field :ocena, in: 2.0..5.0, step: 0.5 %>
+            <%= form.submit 'Zapisz ocenę', class: "btn btn-sm btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+
 <% end %>
-<% end %>
+
+
+
