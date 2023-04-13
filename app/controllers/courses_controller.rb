@@ -58,6 +58,22 @@ class CoursesController < ApplicationController
 
   def grade_group_save
     @group = Group.find(params[:group_id])
+    xdata = DateTime.now
+    lista = params['o']
+    lista.each_key do |s|
+      sid = s.to_i
+      lista[s].each_key do |g|
+        gid = g.to_i
+        xocena = lista[s][g].to_f
+        xgr = Grade.find(gid)
+        if xgr.ocena!=xocena
+          xgr.ocena = xocena
+          xgr.data = xdata
+          xgr.save
+        end
+      end
+    end
+
     redirect_to courses_url, notice: "Byłem w ocenach"
   end
 
