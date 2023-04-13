@@ -73,8 +73,7 @@ class CoursesController < ApplicationController
         end
       end
     end
-
-    redirect_to courses_url, notice: "Byłem w ocenach"
+    redirect_to courses_url
   end
 
   # POST /courses or /courses.json
